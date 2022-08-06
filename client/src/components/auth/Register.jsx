@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import AlertContext from '../../context/alert/alertContext'
 import AuthContext from '../../context/auth/authContext'
 
-const Register = (props) => {
+const Register = () => {
     const alertContext = useContext(AlertContext)
     const authContext = useContext(AuthContext)
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const { setAlert } = alertContext
     const { register, error, clearErrors, isAuthenticated } = authContext
@@ -20,7 +20,7 @@ const Register = (props) => {
             clearErrors();
         }
         // eslint-disable-next-line
-    }, [error, isAuthenticated, props.history])
+    }, [error, isAuthenticated, navigate])
 
     const [user, setUser] = useState({
         name: '',
