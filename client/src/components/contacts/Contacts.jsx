@@ -1,34 +1,24 @@
-import { useContext } from "react"
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import ContactContext from "../../context/contact/contactContext"
+import { useContext } from "react"
 import ContactItem from "./ContactItem"
+import { v4 as uuidv4 } from 'uuid'
 
 const Contacts = () => {
     const contactContext = useContext(ContactContext)
 
     const { contacts, filtered } = contactContext
 
-    if (contacts.length === 0) {
-        return <h4>Please add Contacts</h4>
-    }
-
     return (
         <>
-            <TransitionGroup>
-                {filtered !== null
-                    ? (filtered.map(contact =>
-                        <CSSTransition key={contact.id} timeout={1000} classNames="item">
-                            <ContactItem contact={contact} />
-                        </CSSTransition>
-                    ))
-                    :
-                    ((contacts.map(contact =>
-                        <CSSTransition key={contact.id} timeout={1000} classNames="item">
-                            <ContactItem contact={contact} />
-                        </CSSTransition>
-                    )))
-                }
-            </TransitionGroup>
+            {filtered !== null
+                ? filtered.map(contact => {
+                    return <ContactItem key={contact.id} contact={contact} />
+                })
+                :
+                contacts.map(contact => {
+                    return <ContactItem key={contact.id} contact={contact} />
+                })
+            }
         </>
     )
 }

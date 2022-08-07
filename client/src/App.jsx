@@ -1,29 +1,30 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from 'react-router-dom'
 import Navbar from './components/layout/Navbar'
-import Home from './components/pages/Home'
 import About from './components/pages/About'
+import Home from './components/pages/Home'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
-import setAuthToken from './utils/setAuthToken'
-
-import ContactState from './context/contact/ContactState'
-import AuthState from './context/auth/AuthState'
-import AlertState from './context/alert/AlertState'
 import Alerts from './components/layout/Alerts'
 
-import './App.css';
+import AlertState from './context/alert/AlertState'
+import AuthState from './context/auth/AuthState'
+import ContactState from './context/contact/ContactState'
+import './App.css'
+import setAuthToken from './utils/setAuthToken'
 
-
-
+if (localStorage.token) {
+  setAuthToken(localStorage.token)
+}
 const App = () => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token)
-  }
   return (
     <AuthState>
       <ContactState>
         <AlertState>
-          <Router>
+          <BrowserRouter>
             <>
               <Navbar />
               <div className="container">
@@ -32,11 +33,11 @@ const App = () => {
                   <Route exact path='/' element={<Home />} />
                   <Route exact path='/about' element={<About />} />
                   <Route exact path='/register' element={<Register />} />
-                  <Route exact path='/login' element={<Login />} />
+                  <Route exact path='/Login' element={<Login />} />
                 </Routes>
               </div>
             </>
-          </Router>
+          </BrowserRouter>
         </AlertState>
       </ContactState>
     </AuthState>
